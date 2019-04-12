@@ -1,5 +1,6 @@
 const shooter = document.getElementById("player-controlled-shooter");
 
+//key move up function below//
 function moveUp() {
   let topPosition = window.getComputedStyle(shooter).getPropertyValue("top");
   if (shooter.style.top === "0px") {
@@ -13,7 +14,7 @@ function moveUp() {
     shooter.style.top = `${position}px`;
   }
 }
-
+//key move down function below//
 function moveDown() {
   let topPosition = window.getComputedStyle(shooter).getPropertyValue("top");
   if (shooter.style.top === "360px") {
@@ -22,12 +23,23 @@ function moveDown() {
     let position = parseInt(topPosition);
     // position += 100;
     if (position < 550) {
-        position += 100;
-      }
+      position += 100;
+    }
     shooter.style.top = `${position}px`;
   }
 }
 
+//ADDED MOUSE EVENT LISTENER
+document.addEventListener("mousemove", mouseMoveHandler, false)
+
+function mouseMoveHandler(e){
+  var y = e.clientY - 140;
+  shooter.style.top = `${y}px`;
+  // var coor = "Coordinates: (y)";
+
+}
+
+//FUNTION TO MAKE BATMOBILE MOVE
 function letMobileMove(event) {
   if (event.key === "ArrowUp") {
     event.preventDefault();
@@ -42,7 +54,7 @@ function letMobileMove(event) {
 
 let time = 50;
 const backGround = document.getElementById("main-play-area");
-setInterval(() => {
+let game = setInterval(() => {
   let x = window
     .getComputedStyle(backGround)
     .getPropertyValue("background-position-x")
@@ -56,7 +68,11 @@ window.addEventListener("keydown", letMobileMove);
 function fireBatarang() {
   let batarang = createBatarang();
   backGround.appendChild(batarang);
-  moveBatarang(batarang);
+  setTimeout(()=>
+  {
+    batarang.remove()
+  },1000)
+  //moveBatarang(batarang);
 }
 let counter = 0;
 function createBatarang() {
@@ -74,79 +90,157 @@ function createBatarang() {
   newBatarang.classList.add(`batarang${counter}`);
   newBatarang.classList.add(`batarang`);
 
-  newBatarang.style.left = `${xPosition + 250}px`;
-  newBatarang.style.top = `${yPosition + 130}px`;
+  // newBatarang.style.left = `${xPosition + 250}px`;
+   newBatarang.style.top = `${yPosition + 130}px`;
   counter++;
   return newBatarang;
   // console.log(newBatarang);
 }
 
-function moveBatarang(batarang) {
-  let batarangInterval = setInterval(() => {
-    let xPosition = parseInt(batarang.style.left);
-    if (xPosition === 340) {
-      batarang.remove();
-    } else {
-      batarang.style.left = `${xPosition + 30}px`;
-    }
-  }, 100);
-}
+// function moveBatarang(batarang) {
+//   let xPosition = parseInt(batarang.style.left);
 
-const enemyImages = [
+//   let batarangInterval = setInterval(() => {
+//     if ( xPosition > window.innerWidth  ) {
+//       batarang.remove();
+//       clearInterval(batarangInterval)
+//     } else {
+//       batarang.style.left = `${xPosition += 100}px`;
+//     }
+//     let enemies = document.querySelectorAll('.enemy')
+//     //console.log(enemies, typeof enemies)
+//     enemies.forEach(enemy=>{
+//       let collided = checkBatarangCollision(batarang, enemy)
+//       if( collided ) {
+//         console.log(  'collided',collided  ) 
+
+//         enemy.remove()
+//         //clearInterval(game)
+//         //clearInterval(createEnemyInterval)
+//         //debugger
+//       }
+//     })
+//   }, 100);
+// }
+
+
+
+
+
+
+//below is the pictures of enemy//
+const enemyImages = [ 
   "images/enemy1.gif",
-//   "images/enemy2.png",
-//   "images/enemy3.png"
+  "images/enemy2.png",
+  "images/enemy3.png"
 ];
 
+// creation of enemies below/
 function createEnemy() {
   let newEnemy = document.createElement("img");
-  newEnemy.setAttribute("class", "enemy")
+  newEnemy.setAttribute("class", "enemy");
   let enemyPicture =
     enemyImages[Math.floor(Math.random() * enemyImages.length)];
   console.log(enemyPicture);
   newEnemy.src = enemyPicture;
   newEnemy.classList.add("enemy");
-  newEnemy.style.left = "370px";
-  newEnemy.style.top = `${Math.floor(Math.random() * 330) + 30}px`;
+  newEnemy.style.left = window.innerWidth + 'px';
+  newEnemy.style.top = `${Math.floor(Math.random() * 630) + 50}px`;
   backGround.appendChild(newEnemy);
   moveEnemy(newEnemy);
 }
 
+//move the enemy funtion below//
 function moveEnemy(enemy) {
   let moveEnemyInterval = setInterval(() => {
     let xPosition = parseInt(
       window.getComputedStyle(enemy).getPropertyValue("left")
     );
-    if (xPosition <= 50) {
+    if (xPosition <= -20) {
       enemy.remove();
     } else {
-      enemy.style.left = `${xPosition - 4}px`;
+      enemy.style.left = `${xPosition - 140}px`; //enemies speed 
     }
-  }, 30);
+  }, 3);
 }
 
-function checkBatarangCollision(batarang, enemy){
+
+// function isCollide(a, b) {
+
+
+//   return !(
+//       ((a.y + a.height) < (b.y)) ||
+//       (a.y > (b.y + b.height)) ||
+//       ((a.x + a.width) < b.x) ||
+//       (a.x > (b.x + b.width))
+//   );
+// }
+
+
+
+//batrang collision is detected below//
+function checkBatarangCollision(batarang, enemy) {
   let batarangLeft = parseInt(batarang.style.left);
   let batarangTop = parseInt(batarang.style.top);
-  let batarngBottom = batarangTop - 20;
+  let batarangBottom = batarangTop - 50;
   let enemyTop = parseFloat(enemy.style.top);
   let enemyBottom = parseFloat(enemyTop - 30);
   let enemyLeft = parseInt(enemy.style.left);
-  
-  if (batarangLeft != 340 && batarangLeft +)
-  
-  
-  
-  }
-  
-  
-  window.setInterval(() => {
-    createEnemy();
-    checkBatarangCollision()
-  }, 1000);
+
+
+  return !(
+    ((batarangTop + 20) < (enemyTop)) ||
+    (batarangTop > (enemyTop + 40)) ||
+    ((batarangLeft) < enemyLeft) ||
+    (batarangLeft > (enemyLeft + 40))
+  ) ;
+
+  //console.log(batarangLeft, batarangTop, batarangBottom, enemyTop, enemyBottom, enemyLeft)
+  // if (batarangLeft != 340 && batarangLeft + 40 >= enemyLeft) {
+  //   if (batarangTop <= enemyTop && batarangTop >= enemyBottom) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // } else {
+  //   return false;
+  // }
+}
 
 
 
+let difficulty = 1; //number of enemies
+let createEnemyInterval = window.setInterval(() => {
+  createEnemy();
+
+
+  let batarangs = document.querySelectorAll('.batarang')
+
+  let enemies = document.querySelectorAll('.enemy')
+  //console.log(enemies, typeof enemies)
+  batarangs.forEach(batarang=>{
+    //console.log(bara)
+    //console.log( window.getComputedStyle(batarang).getPropertyValue("left") )
+    let batarangLeft = parseInt(batarang.style.left);
+    console.log(batarangLeft)
+    if(batarangLeft > window.innerWidth){
+      batarang.remove()
+    }
+    enemies.forEach(enemy=>{
+      let collided = checkBatarangCollision(batarang, enemy)
+      if( collided ) {
+        console.log(  'collided',collided  ) 
+
+        enemy.remove()
+        //clearInterval(game)
+        //clearInterval(createEnemyInterval)
+        //debugger
+      }
+    })
+  })
+
+
+}, 202/difficulty);
 
 
 

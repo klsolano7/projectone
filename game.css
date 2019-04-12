@@ -5,11 +5,12 @@
     background-image: url('./images/gothamcity2.jpg');
     background-position-x: 0;
     /* width: 400px;*/
-    height: 750px; 
-    border: 8px solid navy;
+    height: 800px; 
+    border: 10px solid navy;
     background-size: cover;
     margin: 0%;
-
+    transition: all 0.25s;
+    
 }
 
 #player-controlled-shooter{
@@ -22,6 +23,7 @@ top: 380px;
 width: 250px;
 height: 200px;
 z-index: 1;
+transition: 0s !important;
 
 }
 
@@ -29,19 +31,38 @@ z-index: 1;
     width: 40px;
     height: 40px;
     position: absolute;
+    /* transition: all 0.25s; */
 }
 
 body {
     margin : 0;
     overflow: hidden;
+    /* transition: all 0.25s; */
 }
 
 .enemy{
-    width: 40px;
-    height: 40px;
-    /* position: absolute; */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    position: absolute;
+    /* transition: all 0.25s; */
+    
 }
 
+
+.batarang {
+    position: absolute;
+    animation: move 1s forwards; 
+
+}
+
+@keyframes move {
+    0%   { left: 340px; transform: scale(1) rotate(0deg); }
+    99% { left: 104vw; opacity: 1;transform: scale(1.5)rotate(2000deg); }
+    100% {display:none;}
+  }
 /* * {
     border : 1px solid red;
 } */
