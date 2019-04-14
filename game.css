@@ -25,6 +25,7 @@ height: 200px;
 z-index: 1;
 transition: 0s !important;
 
+
 }
 
 .batarang{
@@ -54,7 +55,12 @@ body {
 
 .batarang {
     position: absolute;
+    box-shadow:
+    0 0 20px 20px #fff,  /* inner white */
+    20px 20px 20px 20px rgb(251, 255, 2), /* middle magenta */
+    0 0 100px 30px rgb(255, 0, 234); /* outer cyan */
     animation: move 1s forwards; 
+    
 
 }
 
@@ -66,3 +72,8 @@ body {
 /* * {
     border : 1px solid red;
 } */
+
+#start-button{
+    color: pink;
+    position: relative;
+}

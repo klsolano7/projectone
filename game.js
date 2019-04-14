@@ -165,6 +165,7 @@ function moveEnemy(enemy) {
 }
 
 
+
 // function isCollide(a, b) {
 
 
@@ -243,7 +244,25 @@ let createEnemyInterval = window.setInterval(() => {
 }, 202/difficulty);
 
 
-
+function movingBatarang(batarang){
+  batarangInterval = setInterval(()=>{
+    let xPosition= parseInt(batarang.style.left)
+    let enemies = document.querySelectorAll(".enemies")
+    enemies.forEach(enemies => {
+      if(checkBatarangCollision(laser, enemies)){
+        enemies.src = "images/explosionburst.png"
+        enemies.classList.remove("enemies");
+        enemies.classList.add("dead-enemies");
+      }
+    });
+      if(xPosition === 340){
+        batarang.style.display = 'none'
+        laser.remove()
+      } else{
+        batarang.style.left = `${xPosition + 4}px`
+      }
+    }, 10);
+}
 
 
 
