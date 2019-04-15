@@ -165,20 +165,6 @@ function moveEnemy(enemy) {
 }
 
 
-
-// function isCollide(a, b) {
-
-
-//   return !(
-//       ((a.y + a.height) < (b.y)) ||
-//       (a.y > (b.y + b.height)) ||
-//       ((a.x + a.width) < b.x) ||
-//       (a.x > (b.x + b.width))
-//   );
-// }
-
-
-
 //batrang collision is detected below//
 function checkBatarangCollision(batarang, enemy) {
   let batarangLeft = parseInt(batarang.style.left);
@@ -217,16 +203,16 @@ let createEnemyInterval = window.setInterval(() => {
 
   let batarangs = document.querySelectorAll('.batarang')
 
-  let enemies = document.querySelectorAll('.enemy')
+  let enemies = document.querySelectorAll('.enemies')
   //console.log(enemies, typeof enemies)
   batarangs.forEach(batarang=>{
     //console.log(bara)
     //console.log( window.getComputedStyle(batarang).getPropertyValue("left") )
     let batarangLeft = parseInt(batarang.style.left);
     console.log(batarangLeft)
-    if(batarangLeft > window.innerWidth){
-      batarang.remove()
-    }
+              if(batarangLeft > window.innerWidth){
+                batarang.remove()
+              }
     enemies.forEach(enemy=>{
       let collided = checkBatarangCollision(batarang, enemy)
       if( collided ) {
