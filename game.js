@@ -83,6 +83,8 @@ function createBatarangElement() {
   return newBatarang;
 }
 
+
+
 function moveBatarang(batarang) {
   let batarangInterval = setInterval(() => {
     let xPosition = parseInt(batarang.style.left);
