@@ -48,6 +48,7 @@ function letMobileMove(event) {
     event.preventDefault();
     moveDown();
   } else if (event.key === " ") {
+    console.log(event)
     event.preventDefault();
     fireBatarang();
     console.log("firebatarang");
@@ -98,8 +99,11 @@ function moveBatarang(batarang) {
       }
     });
     if (xPosition >  window.innerWidth) {
+       console.log('remove',batarang)
        batarang.style.display = "none";
-       batarang.remove();
+       clearInterval(batarangInterval)
+       return batarang.remove();
+
     } else {
       batarang.style.left = `${xPosition + 10}px`; //HOW MUCH BATARANG MOVES FROM LEFT TO RIGHT
     }
