@@ -63,7 +63,7 @@ function createBatarangElement(){
   newBatarang.src = 'images/batarang2.png'
   newBatarang.classList.add('batarang')
   newBatarang.style.left = `${xPosition}px` //BATARANG TRAVEL X AXIS
-  newBatarang.style.top =`${yPosition - 4}px`
+  newBatarang.style.top =`${yPosition - 10}px`
 
   return newBatarang;
 }
@@ -90,13 +90,6 @@ function moveBatarang (batarang) {
     }
   }, 10) //speed of batarang speed
 }
-
-
-
-
-
-
-
 
 
 //below is the pictures of enemy//
