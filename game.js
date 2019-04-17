@@ -1,9 +1,9 @@
+//VARIABLES//
 const startButton = document.getElementById("start-button");
 const shooter = document.getElementById("player-controlled-shooter");
 const backGround = document.getElementById("main-play-area");
 const instructions = document.getElementById("instructions-text");
 const scoreCounter = document.querySelector("#score span");
-
 let enemyInterval;
 let enemy;
 
@@ -75,7 +75,7 @@ function createBatarangElement() {
   let newBatarang = document.createElement("img");
   newBatarang.src = "images/batarang2.png";
   newBatarang.classList.add("batarang");
-  newBatarang.style.left = `${xPosition}px`; //BATARANG TRAVEL X AXIS
+  newBatarang.style.left = `${xPosition + 150}px`; //BATARANG TRAVEL X AXIS
   // newBatarang.style.left = 0; 
   console.log(xPosition)
   newBatarang.style.top = `${yPosition}px`;
@@ -133,6 +133,7 @@ function createEnemy() {
 }
 
 function moveEnemy(enemy) {
+  gameOver()
   let moveEnemyInterval = setInterval(() => {
     let xPosition = parseInt(
       window.getComputedStyle(enemy).getPropertyValue("left")
@@ -142,7 +143,6 @@ function moveEnemy(enemy) {
         enemy.remove();
       } else {
         enemy.remove();
-
       }
     } else {
       enemy.style.left = `${xPosition - 4}px`;
@@ -168,9 +168,32 @@ function checkBatarangCollision(batarang, enemy) {
   }
 }
 
-// function gameOver(){
+function gameOver(){
 
-// }
+  let enemies = document.querySelectorAll('.enemy')
+  console.log(enemies)
+  enemies.forEach(enemy=>{
+    var det1 = enemy.getBoundingClientRect();
+    var det2 = shooter.getBoundingClientRect();
+
+    if (det1.left < det2.right&&
+      det1.right > det2.left &&
+      det1.top < det2.bottom &&
+      det1.bottom > det2.top){
+        let endGame = new Audio("audio/failed.mp3")
+        endGame.play();
+      setTimeout(() => {
+        alert("You're not worthy enough to be Batman");
+        location.reload();
+        return true;
+
+      }, 100);
+      }
+  });
+
+
+
+}
 
 function playGame() {
   startButton.style.display = "none";
@@ -182,10 +205,5 @@ function playGame() {
     createEnemy();
   }, 800); //how many enemies are created
   createEnemy();
+  
 }
-
-// setInterval(function(){
-
-//   createEnemy()
-
-// }, 1000);
