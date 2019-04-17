@@ -17,18 +17,18 @@ width: 140px;
 height: 120px;
 left: 20px;
 top: 180px;
+/* z-index: 1; */
 }
 
 .batarang{
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    margin-top:80px;
-    /* box-shadow:
+    box-shadow:
     0 0 5px 5px #fff
     7px 7px 7px 7px rgb(2, 40, 255)
     0 0 10px 10px rgb(0, 140, 255);
-      */
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin-top:80px;     
     animation: move 3s forwards;
 }
 @keyframes move {
@@ -38,8 +38,8 @@ top: 180px;
   }
 
 .enemy{
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     position: relative;
 }
 
@@ -69,10 +69,17 @@ position: relative;
 #score{
     color: blue;
     position : absolute;
-    top : 690px;
-    left : 640px;
-    font-size: 30px;
+    top : 13px;
+    left : 1250px;
+    font-size: 15px;
 }
+#high-score{
+    color: blue;
+    position : absolute;
+    top : 13px;
+    left : 20px;
+    font-size: 15px;
+  }
 
 #lose{
     position : absolute;
@@ -92,4 +99,18 @@ position: relative;
     font-size: 20px;
     color: white;
 }
+
+.batman-lost{
+    /* width: 120px;
+    height: 120px;
+position: relative; */
+/* transform:translate(+25%, +25%) scale(1); */
+/* background-size: 50% 100%; */
+animation: move 1s forwards;
+}
+/* @keyframes move {
+    0%   {  transform: scale(1) rotate(0deg); }
+    99% {  opacity: 1;transform: scale(1.5) rotate(2000deg); }
+    100% {display:none;}
+  } */
 

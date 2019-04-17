@@ -6,6 +6,13 @@ const instructions = document.getElementById("instructions-text");
 const scoreCounter = document.querySelector("#score span");
 let enemyInterval;
 let enemy;
+let backGroundSong = new Audio("audio/knight2.mp3");
+
+if (localStorage.getItem('highScore')) {
+  document.querySelector('#high-score > h2 > span').innerText = localStorage.getItem('highScore')
+} else {
+  localStorage.setItem('highScore', 0)
+}
 
 startButton.addEventListener("click", event => {
   playGame();
@@ -97,7 +104,6 @@ function moveBatarang(batarang) {
         enemy.classList.remove("enemy");
         enemy.classList.add("dead-enemy");
         scoreCounter.innerText = parseInt(scoreCounter.innerText) + 100;
-        console.log("boom");
       }
     });
     if (xPosition >  window.innerWidth) {
@@ -116,7 +122,8 @@ function moveBatarang(batarang) {
 const enemyImages = [
   "images/enemy1.gif",
   "images/enemy2.png",
-  "images/enemy3.png"
+  "images/enemy3.png",
+  "images/harley.png"
 ];
 
 function createEnemy() {
@@ -147,7 +154,7 @@ function moveEnemy(enemy) {
     } else {
       enemy.style.left = `${xPosition - 4}px`;
     }
-  }, 10);
+  }, 5);
 }
 
 function checkBatarangCollision(batarang, enemy) {
@@ -171,6 +178,7 @@ function checkBatarangCollision(batarang, enemy) {
 function gameOver(){
 
   let enemies = document.querySelectorAll('.enemy')
+  let batman = document.querySelectorAll('.shooter')
   console.log(enemies)
   enemies.forEach(enemy=>{
     var det1 = enemy.getBoundingClientRect();
@@ -180,11 +188,24 @@ function gameOver(){
       det1.right > det2.left &&
       det1.top < det2.bottom &&
       det1.bottom > det2.top){
+        // enemy.src = "images/explosionburst.png"
+        shooter.classList.remove("enemy");
+        shooter.classList.add("batman-lost");
         let endGame = new Audio("audio/failed.mp3")
+        endGame.volume = 0.9;
         endGame.play();
       setTimeout(() => {
+        if (Number(scoreCounter.innerText) > Number(localStorage.getItem('highScore'))) {
+          localStorage.setItem('highScore', scoreCounter.innerText)
+          backGroundSong.pause();
+          backGroundSong.currentTime = 0;
+          alert("Batman is proud of your high score")
+        }
+        backGroundSong.pause();
+        backGroundSong.currentTime = 0;
         alert("You're not worthy enough to be Batman");
         location.reload();
+        
         return true;
 
       }, 100);
@@ -195,11 +216,12 @@ function gameOver(){
 
 }
 
+
+
 function playGame() {
   startButton.style.display = "none";
   instructions.style.display = "none";
   window.addEventListener("keydown", letMobileMove);
-  let backGroundSong = new Audio("audio/knight2.mp3");
   backGroundSong.play();
   let enemyInterval = setInterval(() => {
     createEnemy();
