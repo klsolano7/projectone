@@ -2,4 +2,4 @@
 Iron first project
 
 
-https://klsolano7.github.io/projectone/
+https://klsolano7.github.io/projectone/game.html
